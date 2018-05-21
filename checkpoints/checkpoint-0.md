@@ -10,7 +10,7 @@
 
 * [ ] Add a button on the page that invokes a `startGame` method.
   * [ ] within `startGame`, generate the data for Minesweeper
-  * [ ] Use a <table> (and <tr>/<td> elements) to render the data in your template
+  * [ ] Use a `<table>` (and `<tr>`/`<td>` elements) to render the data in your template
     * [ ] Read the `<style>` block to get hints on what class names to use
   * こういう感じに描画するのが目的です：https://i.imgur.com/WN2gywA.png
     * (Note) This board uses 10 rows and 20 columns.
