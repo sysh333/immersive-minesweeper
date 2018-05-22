@@ -43,6 +43,66 @@ export default {
         }
         this.tiles.push(row);
       }
+    },
+
+    showAll: function() {
+      /**
+       * Shows all board tiles
+       *
+       * @return undefined
+       */
+    },
+
+    openTile: function(tile) {
+      /**
+       * @param tile Tile object
+       *
+       * @return undefined
+       */
+
+    },
+
+    flagTile: function(tile) {
+      /**
+       * @param tile tile object
+       *
+       * @return undefined
+       */
+    },
+
+    getNeighbors: function(tile) {
+      /**
+       * @param tile tile object
+       *
+       * @return Array<tile objects>
+       */
+    },
+
+    countNeighboringMines: function(neighbors) {
+      /**
+       * @param neighbors Array<tile objects>
+       *
+       * @return number
+       */
+    },
+
+    isUnopened: function(tile) {
+      /**
+       * @param tile tile object
+       *
+       * @return boolean
+       */
+    },
+
+    isValid: function(row, col) {
+      /**
+       * @param row number
+       * @param col number
+       *
+       * Checks to see if row and col are valid indices (within the game board boundaries)
+       *
+       * @return boolean
+       */
     }
   }
 }
