@@ -1,6 +1,19 @@
 <template>
   <div id="app">
-
+    <button v-on:click="startGame">Start Game</button>
+    <table class="minesweeper">
+      <tr
+        v-for="(row, r) in tiles"
+        v-bind:key="r"
+      >
+        <td
+          v-for="(tile, c) in row"
+          v-bind:key="c"
+          v-bind:class="tile.state"
+        >
+        </td>
+      </tr>
+    </table>
   </div>
 </template>
 
@@ -9,11 +22,28 @@ export default {
   name: 'App',
   data: () => {
     return {
-
+      rows: 10,
+      columns: 20,
+      tiles: [],
     };
   },
   methods: {
-
+    startGame: function() {
+      this.tiles = [];
+      for (let i = 0; i < this.rows; i++) {
+        const row = [];
+        for (let j = 0; j < this.columns; j++) {
+          let tile = {
+            row: i,
+            col: j,
+            mined: Math.random() * 6 > 5,
+            state: ['unopened']
+          };
+          row.push(tile);
+        }
+        this.tiles.push(row);
+      }
+    }
   }
 }
 </script>

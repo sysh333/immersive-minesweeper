@@ -1,0 +1,18 @@
+The game logic looks something like this
+
+when a player right clicks on a tile,
+  set a flag
+when a player left clicks on a tile,
+  if the tile is mined
+    show a mine
+    reveal all other tiles
+  if its not mined
+    collect information on its neighbors
+    count how many mines surround the tile
+    if there are no mines
+      reveal the tile (set it to "opened")
+        for each neighbor
+          if the neighbor has not been opened yet
+            open the neighbor (recursive logic)
+    if there are mines
+      reveal the number of mines that surround the tile
