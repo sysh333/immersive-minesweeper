@@ -76,6 +76,16 @@ export default {
        *
        * @return Array<tile objects>
        */
+      const { row, col } = tile;
+      let neighborIndices = [
+        [row - 1, col - 1], [row - 1, col], [row - 1, col + 1],
+        [row, col - 1],                     [row, col + 1],
+        [row + 1, col - 1], [row + 1, col], [row + 1, col + 1]
+      ];
+
+      return neighborIndices
+        .filter(([row, col]) => this.isValid(row, col)) // 囲むtileのrow/colがボード外だったら配列から削除する
+        .map(([row, col]) => this.tiles[row][col]); // row/col数をタイルオブジェクトに変換する
     },
 
     countNeighboringMines: function(neighbors) {
@@ -92,6 +102,7 @@ export default {
        *
        * @return boolean
        */
+      return tile.state[0] === 'unopened';
     },
 
     isValid: function(row, col) {
@@ -103,6 +114,8 @@ export default {
        *
        * @return boolean
        */
+      return (row >= 0 && row < this.tiles.length) &&
+             (col >= 0 && col < this.tiles[0].length);
     }
   }
 }
