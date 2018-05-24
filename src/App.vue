@@ -9,6 +9,8 @@
         <td
           v-for="(tile, c) in row"
           v-bind:key="c"
+          v-on:click="openTile(tile)"
+          v-on:contextmenu.prevent="flagTile(tile)"
           v-bind:class="tile.state"
         >
         </td>
@@ -59,15 +61,39 @@ export default {
        *
        * @return undefined
        */
+      let neighbors = this.getNeighbors(tile);
+      let neighborMineCount = this.countNeighboringMines(neighbors);
 
+      if (tile.mined) {
+        tile.state = ['mine'];
+        // TODO this.showAll();
+        return;
+      }
+
+      if (neighborMineCount) {
+        tile.state = ['mine-neighbour-' + neighborMineCount];
+      } else {
+        tile.state = ['opened'];
+        neighbors.forEach(neighbor => {
+          if (this.isUnopened(neighbor)) {
+            this.openTile(neighbor);
+          }
+        });
+      }
     },
 
     flagTile: function(tile) {
       /**
-       * @param tile tile object
+       * @param row number
+       * @param col number
        *
        * @return undefined
        */
+      if (tile.state[0] === 'flagged') {
+        tile.state = ['unopened'];
+      } else {
+        tile.state = ['flagged'];
+      }
     },
 
     getNeighbors: function(tile) {
@@ -94,6 +120,7 @@ export default {
        *
        * @return number
        */
+      return neighbors.filter(neighbor => neighbor.mined).length;
     },
 
     isUnopened: function(tile) {
