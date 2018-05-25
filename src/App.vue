@@ -53,39 +53,56 @@ export default {
        *
        * @return undefined
        */
+      // 開いていない、tileを全部開いて回答を見せる
+      this.tiles.forEach(row => {
+        row.forEach(tile => {
+          this.openTile(tile, true);
+        });
+      });
     },
 
-    openTile: function(tile) {
+    openTile: function(tile, allOpen) {
       /**
        * @param tile Tile object
+       * @param allOpen showAllから呼ばれるときだけtrueにする、など
+       *                それ以外から呼ばれるとき、allOpenを指定しなければ、undefinedになるので、
+       *                falseと同じように扱うことができる、はず
        *
        * @return undefined
        */
-      let neighbors = this.getNeighbors(tile);
-      let neighborMineCount = this.countNeighboringMines(neighbors);
 
       if (tile.mined) {
+        // ここにはいるのは、ユーザがクリックしたタイルがmineであるときのみ！
         tile.state = ['mine'];
-        // TODO this.showAll();
+        if (!allOpen) {
+          this.showAll();
+        }
         return;
       }
 
+      // 処理効率を考えると、minedの判定をした後の方がよい
+      let neighbors = this.getNeighbors(tile);
+      let neighborMineCount = this.countNeighboringMines(neighbors);
+
       if (neighborMineCount) {
+        // 再帰呼出については必ずここで終わる
         tile.state = ['mine-neighbour-' + neighborMineCount];
       } else {
         tile.state = ['opened'];
-        neighbors.forEach(neighbor => {
-          if (this.isUnopened(neighbor)) {
-            this.openTile(neighbor);
-          }
-        });
+        if (!allOpen) {
+          // neighborsは全部minedではない！
+          neighbors.forEach(neighbor => {
+            if (this.isUnopened(neighbor)) {
+              this.openTile(neighbor); // openTileを呼んでも、L74の条件には絶対に引っかからない
+            }
+          });
+        }
       }
     },
 
     flagTile: function(tile) {
       /**
-       * @param row number
-       * @param col number
+       * @param tile tile object
        *
        * @return undefined
        */
