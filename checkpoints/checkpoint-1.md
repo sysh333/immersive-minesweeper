@@ -7,6 +7,9 @@
 * [ ] Pseudocode walkthrough - Explain the game logic (`src/pseudocode.txt`)
 * [ ] Live - Show an example of a stubbed method
 
+
+tesaaaaaaaaaaaa
+
 下記の項目を実装してみよう：
 
 * [ ] Create a list of methods that you think we will need.
